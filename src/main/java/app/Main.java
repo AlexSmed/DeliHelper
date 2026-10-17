@@ -1,17 +1,30 @@
 package app;
 
+import app.api.ProductsApi;
+import app.dao.ProductsDAO;
+import io.javalin.Javalin;
 
-import service.AllergyChecker;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
 
 public class Main {
-    public static void main(String[] args) throws Exception {
 
-        AllergyChecker checker = new AllergyChecker();
+    public static void main(String[] args) {
 
-        String result = checker.checkImage( "C:\\Users\\Aschl\\IdeaProjects\\Portfolio-Project\\src\\main\\resources\\public\\Img\\LabelTwo.jpg" );
-        System.out.println("Result:");
-        System.out.println(result);
-        checker.close();
+        EntityManagerFactory emf =
+                Persistence.createEntityManagerFactory("products");
 
+        ProductsDAO productsDAO = new ProductsDAO(emf);
+
+        Javalin app = Javalin.create(config -> {
+            config.http.defaultContentType = "application/json";
+        });
+
+        ProductsApi productsApi =
+                new ProductsApi(productsDAO);
+
+        productsApi.registerRoutes(app);
+
+        app.start(7000);
     }
 }

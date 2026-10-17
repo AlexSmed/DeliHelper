@@ -1,0 +1,22 @@
+### Get all products
+GET http://localhost:7000/products
+Accept: application/json
+
+### Create products
+POST http://localhost:7000/products
+Content-Type: application/json
+
+{
+  "name": "Coleslaw",
+  "ingredients": "1 kg Gulerød Strimler\n1 kg Spidskål\n900 g Mayonaise\n100 g HvidvinsEddike\n100 g Floursukker",
+  "store_id": "8830",
+  "category": "Salat",
+  "allergies": "Egg",
+  "price": "19 kr pr 100 g",
+  "recipe": "Mix alt sammen i en container",
+  "lastUse": "+2 dage",
+  "plu": "1010"
+}
+### Get poem by ID
+GET http://localhost:7000/poem/1
+Accept: application/json

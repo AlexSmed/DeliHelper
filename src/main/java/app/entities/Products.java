@@ -9,6 +9,10 @@ import jakarta.persistence.*;
 public class Products {
 
     @Id
+    @GeneratedValue
+    @Column (name = "id")
+    private long id;
+
     @Column(name = "name", length = 100)
     private String name;
 
@@ -16,7 +20,7 @@ public class Products {
     private String pictrure;
 
     @Column(name = "price")
-    private int price;
+    private String price;
 
     @Column(name = "recipe", columnDefinition="TEXT")
     private String recipe;
@@ -43,15 +47,19 @@ public class Products {
 
     }
 
+    public void setId(long id) {
+        this.id = id;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setPictrure(String pictrure) {
+    public void setPicture(String pictrure) {
         this.pictrure = pictrure;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(String price) {
         this.price = price;
     }
 
@@ -86,7 +94,11 @@ public class Products {
     // getter
 
 
-    public String getPictrure() {
+    public long getId() {
+        return id;
+    }
+
+    public String getPicture() {
         return pictrure;
     }
 
@@ -94,7 +106,7 @@ public class Products {
         return name;
     }
 
-    public int getPrice() {
+    public String getPrice() {
         return price;
     }
 
