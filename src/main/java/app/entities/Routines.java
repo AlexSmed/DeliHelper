@@ -6,6 +6,10 @@ import jakarta.persistence.*;
 public class Routines {
 
     @Id
+    @GeneratedValue
+    @Column (name = "id")
+    private long id;
+
     @Column(name = "title", length = 100, nullable = false)
     private String title;
 

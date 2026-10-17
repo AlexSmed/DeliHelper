@@ -8,6 +8,10 @@ import java.time.LocalDate;
 public class Bulletin {
 
     @Id
+    @GeneratedValue
+    @Column (name = "id")
+    private long id;
+
     @Column(name = "title", length = 100, nullable = false)
     private String title;
 
@@ -28,3 +32,4 @@ public class Bulletin {
     }
 
 }
+
