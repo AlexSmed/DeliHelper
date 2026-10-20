@@ -12,11 +12,26 @@ public class EmployeeDAO {
     public Employee save(Employee employee)
     {
         EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(employee);
-        em.getTransaction().commit();
-        em.close();
-        return employee;
+
+        try{
+            em.getTransaction().begin();
+
+            em.persist(employee);
+            em.getTransaction().commit();
+
+            return employee;
+
+        } catch (Exception e) {
+            if (em.getTransaction().isActive()) {
+                em.getTransaction().rollback();
+            }
+
+            e.printStackTrace();
+            throw e;
+
+        } finally {
+            em.close();
+        }
     }
 
     public Employee findById(int id)
@@ -25,6 +40,22 @@ public class EmployeeDAO {
         Employee foundEmployee = em.find(Employee.class, id);
         em.close();
         return foundEmployee;
+    }
+
+    public Employee findByUsername(String username) {
+        EntityManager em = emf.createEntityManager();
+
+        try {
+            return em.createQuery(
+                            "SELECT e FROM Employee e WHERE e.username = :username",
+                            Employee.class)
+                    .setParameter("username", username)
+                    .getResultStream()
+                    .findFirst()
+                    .orElse(null);
+        } finally {
+            em.close();
+        }
     }
 
     public Employee update(Employee employee)

@@ -1,30 +1,66 @@
 package app;
 
-import app.api.ProductsApi;
-import app.dao.ProductsDAO;
-import io.javalin.Javalin;
 
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
+import app.dao.EmployeeDAO;
+import app.entities.Employee;
+
+
+import java.util.Scanner;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        EntityManagerFactory emf =
-                Persistence.createEntityManagerFactory("products");
+        EmployeeDAO employeeDAO = new EmployeeDAO();
+        Scanner scanner = new Scanner(System.in);
 
-        ProductsDAO productsDAO = new ProductsDAO(emf);
+        try {
+            // Create an employee for demonstration
+            Employee employee = new Employee();
+            employee.setUsername("john");
+            employee.setPassword("Password123!");
+            employee.setStore_id(8830);
+            employee.setIs_admin(true);
 
-        Javalin app = Javalin.create(config -> {
-            config.http.defaultContentType = "application/json";
-        });
+            employeeDAO.save(employee);
 
-        ProductsApi productsApi =
-                new ProductsApi(productsDAO);
+            System.out.println("Employee created successfully!");
 
-        productsApi.registerRoutes(app);
+            // Login
+            System.out.print("Username: ");
+            String username = scanner.nextLine();
 
-        app.start(7000);
+            System.out.print("Password: ");
+            String password = scanner.nextLine();
+
+            Employee loggedInEmployee =
+                    employeeDAO.findByUsername(username);
+
+            if (loggedInEmployee == null
+                    || !loggedInEmployee.verifyPassword(password)) {
+
+                System.out.println("Invalid username or password.");
+                return;
+            }
+
+            System.out.println("Login successful!");
+            System.out.println(
+                    "Roles: "
+                            + loggedInEmployee.getRolesAsStrings()
+            );
+
+            // Check authorization
+            if (loggedInEmployee.getRolesAsStrings()
+                    .contains("ADMIN")) {
+
+                System.out.println("Welcome, administrator!");
+            } else {
+                System.out.println("Welcome, employee!");
+            }
+
+        } finally {
+            scanner.close();
+            employeeDAO.close();
+        }
     }
 }

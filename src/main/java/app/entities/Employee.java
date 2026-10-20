@@ -1,9 +1,13 @@
 package app.entities;
 
 import jakarta.persistence.*;
+import java.util.Set;
+import java.util.HashSet;
+import app.security.ISecurityUser;
+import org.mindrot.jbcrypt.BCrypt;
 
 @Entity
-public class Employee {
+public class Employee implements ISecurityUser{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "employee_id", nullable = false)
@@ -21,8 +25,26 @@ public class Employee {
     @Column(name = "is_admin")
     private boolean is_admin;
 
-    public Employee()
-    {
+    public Employee(){}
+
+    @Override
+    public Set<String> getRolesAsStrings() {
+        Set<String> roles = new HashSet<>();
+
+        roles.add("USER");
+
+        if (is_admin) {
+            roles.add("ADMIN");
+        }
+
+        return roles;
+    }
+
+    @Override
+    public boolean verifyPassword(String password) {
+        return password != null
+                && this.password != null
+                && BCrypt.checkpw(password, this.password);
     }
 
     // Getters and setters
@@ -40,7 +62,10 @@ public class Employee {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = BCrypt.hashpw(
+                password,
+                BCrypt.gensalt(12)
+        );
     }
 
     public int getStore_id() {
