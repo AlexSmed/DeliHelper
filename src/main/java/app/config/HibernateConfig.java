@@ -1,7 +1,9 @@
+
 package app.config;
 
 import app.utils.Utils;
 import jakarta.persistence.EntityManagerFactory;
+import org.hibernate.cfg.Configuration;
 
 import java.util.Properties;
 
@@ -12,45 +14,70 @@ public final class HibernateConfig {
     private HibernateConfig() {}
 
     public static EntityManagerFactory getEntityManagerFactory() {
-        if (emf == null) {
-            synchronized (HibernateConfig.class) {
-                if (emf == null) {
-                    emf = HibernateEmfBuilder.build(buildProps());
+        if (Boolean.parseBoolean(System.getenv("PRODUCTION"))) {
+            if (emf == null) {
+                synchronized (HibernateConfig.class) {
+                    if (emf == null) {
+                        emf = setupHibernateConfigurationForProduction();
+                    }
                 }
             }
+            return emf;
         }
-        return emf;
+
+        return HibernateEmfBuilder.build(buildDevProps());
     }
 
-    private static Properties buildProps() {
+    private static Properties buildDevProps() {
         Properties props = HibernateBaseProperties.createBase();
 
-        // Teaching-friendly default - change to update in production
-        props.put("hibernate.hbm2ddl.auto", "create");
-
-        if (System.getenv("DEPLOYED") != null) {
-            setDeployedProperties(props);
-        } else {
-            setDevProperties(props);
-        }
-        return props;
-    }
-
-    private static void setDeployedProperties(Properties props) {
-        String dbName = System.getenv("DB_NAME");
-        props.setProperty("hibernate.connection.url", System.getenv("CONNECTION_STR") + dbName);
-        props.setProperty("hibernate.connection.username", System.getenv("DB_USERNAME"));
-        props.setProperty("hibernate.connection.password", System.getenv("DB_PASSWORD"));
-    }
-
-    private static void setDevProperties(Properties props) {
         String dbName = Utils.getPropertyValue("DB_NAME", "config.properties");
         String username = Utils.getPropertyValue("DB_USERNAME", "config.properties");
         String password = Utils.getPropertyValue("DB_PASSWORD", "config.properties");
 
-        props.put("hibernate.connection.url", "jdbc:postgresql://localhost:5432/" + dbName);
-        props.put("hibernate.connection.username", username);
-        props.put("hibernate.connection.password", password);
+        props.setProperty(
+                "hibernate.connection.url",
+                "jdbc:postgresql://localhost:5432/" + dbName
+        );
+        props.setProperty("hibernate.connection.username", username);
+        props.setProperty("hibernate.connection.password", password);
+        props.setProperty("hibernate.hbm2ddl.auto", "create");
+
+        return props;
     }
 
+    private static EntityManagerFactory setupHibernateConfigurationForProduction() {
+        Properties props = new Properties();
+
+        props.setProperty(
+                "hibernate.connection.url",
+                requireEnv("JDBC_DATABASE_URL")
+        );
+        props.setProperty(
+                "hibernate.connection.username",
+                requireEnv("JDBC_DATABASE_USERNAME")
+        );
+        props.setProperty(
+                "hibernate.connection.password",
+                requireEnv("JDBC_DATABASE_PASSWORD")
+        );
+
+        // Add your project's other Hibernate settings and entity mappings
+        // here, or use your existing shared Hibernate configuration builder.
+        return new Configuration()
+                .addProperties(props)
+                .buildSessionFactory();
+    }
+
+    private static String requireEnv(String name) {
+        String value = System.getenv(name);
+
+        if (value == null || value.isBlank()) {
+            throw new IllegalStateException(
+                    "Missing required environment variable: " + name
+            );
+        }
+
+        return value;
+    }
 }
