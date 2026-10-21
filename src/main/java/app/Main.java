@@ -16,13 +16,13 @@ public class Main {
 
         try {
             // Create an employee for demonstration
-            Employee employee = new Employee();
+          /*  Employee employee = new Employee();
             employee.setUsername("john");
             employee.setPassword("Password123!");
             employee.setStore_id(8830);
             employee.setIs_admin(true);
 
-            employeeDAO.save(employee);
+            employeeDAO.save(employee);*/
 
             System.out.println("Employee created successfully!");
 

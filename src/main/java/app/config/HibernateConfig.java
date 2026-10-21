@@ -41,7 +41,7 @@ public final class HibernateConfig {
         );
         props.setProperty("hibernate.connection.username", username);
         props.setProperty("hibernate.connection.password", password);
-        props.setProperty("hibernate.hbm2ddl.auto", "create");
+        props.setProperty("hibernate.hbm2ddl.auto", "update");
 
         return props;
     }
