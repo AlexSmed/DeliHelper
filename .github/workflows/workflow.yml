@@ -49,3 +49,11 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/hotel_api:latest
+
+      - name: Debug repository files
+        run: |
+          pwd
+          git rev-parse --show-toplevel
+          git ls-files
+          ls -la
+          find . -iname 'Dockerfile' -not -path './.git/*'
