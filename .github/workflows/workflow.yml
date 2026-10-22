@@ -48,7 +48,7 @@ jobs:
           context: .
           file: ./Dockerfile
           push: true
-          tags: ${{ secrets.DOCKERHUB_USERNAME }}/hotel_api:latest
+          tags: ${{ secrets.DOCKERHUB_USERNAME }}/delihelper:latest
 
       - name: Debug repository files
         run: |
