@@ -42,6 +42,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
+      - name: Debug repository files
+        run: |
+          echo "Branch: $GITHUB_REF"
+          echo "Workspace: $GITHUB_WORKSPACE"
+          ls -la
+          find . -maxdepth 4 -type f -iname '*dockerfile*' -not -path './.git/*'
+          git ls-files | grep -i dockerfile || true
+
       - name: Build and push
         uses: docker/build-push-action@v6
         with:
@@ -49,11 +57,3 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/aschleimann/delihelper:latest
-
-      - name: Debug repository files
-        run: |
-          pwd
-          git rev-parse --show-toplevel
-          git ls-files
-          ls -la
-          find . -iname 'Dockerfile' -not -path './.git/*'
