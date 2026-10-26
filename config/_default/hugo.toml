@@ -17,15 +17,6 @@ buildFuture = false
 enableEmoji = true
 
 
-baseURL = 'https://alexsmed.github.io/DeliHelper/'
-locale = 'en-us'
-title = 'DeliHelper'
-
-[caches]
-[caches.images]
-dir = ':cacheDir/images'
-
-
 # googleAnalytics = "G-XXXXXXXXX"
 
 [pagination]
