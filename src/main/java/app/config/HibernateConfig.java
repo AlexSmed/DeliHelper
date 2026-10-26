@@ -13,27 +13,20 @@ public final class HibernateConfig {
 
     private HibernateConfig() {}
 
-    
-private static EntityManagerFactory setupHibernateConfigurationForProduction() {
-    Properties props = HibernateBaseProperties.createBase();
+    public static EntityManagerFactory getEntityManagerFactory() {
+        if (Boolean.parseBoolean(System.getenv("PRODUCTION"))) {
+            if (emf == null) {
+                synchronized (HibernateConfig.class) {
+                    if (emf == null) {
+                        emf = setupHibernateConfigurationForProduction();
+                    }
+                }
+            }
+            return emf;
+        }
 
-    String dbName = requireEnv("DB_NAME");
-    String username = requireEnv("DB_USERNAME");
-    String password = requireEnv("DB_PASSWORD");
-
-    props.setProperty(
-            "hibernate.connection.url",
-            "jdbc:postgresql://db:5432/" + dbName
-    );
-    props.setProperty("hibernate.connection.username", username);
-    props.setProperty("hibernate.connection.password", password);
-    props.setProperty("hibernate.hbm2ddl.auto", "update");
-
-    return new Configuration()
-            .addProperties(props)
-            .buildSessionFactory();
-}
-
+        return HibernateEmfBuilder.build(buildDevProps());
+    }
 
     private static Properties buildDevProps() {
         Properties props = HibernateBaseProperties.createBase();
@@ -54,23 +47,20 @@ private static EntityManagerFactory setupHibernateConfigurationForProduction() {
     }
 
     private static EntityManagerFactory setupHibernateConfigurationForProduction() {
-        Properties props = new Properties();
+        Properties props = HibernateBaseProperties.createBase();
+
+        String dbName = requireEnv("DB_NAME");
+        String username = requireEnv("DB_USERNAME");
+        String password = requireEnv("DB_PASSWORD");
 
         props.setProperty(
                 "hibernate.connection.url",
-                requireEnv("JDBC_DATABASE_URL")
+                "jdbc:postgresql://db:5432/" + dbName
         );
-        props.setProperty(
-                "hibernate.connection.username",
-                requireEnv("JDBC_DATABASE_USERNAME")
-        );
-        props.setProperty(
-                "hibernate.connection.password",
-                requireEnv("JDBC_DATABASE_PASSWORD")
-        );
+        props.setProperty("hibernate.connection.username", username);
+        props.setProperty("hibernate.connection.password", password);
+        props.setProperty("hibernate.hbm2ddl.auto", "update");
 
-        // Add your project's other Hibernate settings and entity mappings
-        // here, or use your existing shared Hibernate configuration builder.
         return new Configuration()
                 .addProperties(props)
                 .buildSessionFactory();
