@@ -8,7 +8,8 @@ import jakarta.persistence.EntityManagerFactory;
 import java.util.List;
 
 public class ProductsDAO {
-    private EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
+
+    private final EntityManagerFactory emf;
 
     public ProductsDAO(EntityManagerFactory emf) {
         this.emf = emf;
