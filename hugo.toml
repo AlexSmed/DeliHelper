@@ -1,7 +1,7 @@
-baseURL = 'https://example.org/'
+baseURL = 'https://alexsmed.github.io/DeliHelper/'
 locale = 'en-us'
-title = 'My New Hugo Project'
+title = 'DeliHelper'
 
 [caches]
-  [caches.images]
-    dir = ':cacheDir/images'
+[caches.images]
+dir = ':cacheDir/images'
