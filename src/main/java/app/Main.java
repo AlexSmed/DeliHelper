@@ -1,66 +1,23 @@
 package app;
 
-
-import app.dao.EmployeeDAO;
-import app.entities.Employee;
-
-
-import java.util.Scanner;
+import io.javalin.Javalin;
 
 public class Main {
 
     public static void main(String[] args) {
+        int port = Integer.parseInt(
+                System.getenv().getOrDefault("PORT", "7070")
+        );
 
-        EmployeeDAO employeeDAO = new EmployeeDAO();
-        Scanner scanner = new Scanner(System.in);
+        Javalin app = Javalin.create();
 
-        try {
-            // Create an employee for demonstration
-          /*  Employee employee = new Employee();
-            employee.setUsername("john");
-            employee.setPassword("Password123!");
-            employee.setStore_id(8830);
-            employee.setIs_admin(true);
+        // Docker health check endpoint
+        app.get("/api/auth/healthcheck", ctx -> {
+            ctx.status(200).result("OK");
+        });
 
-            employeeDAO.save(employee);*/
+        app.start("0.0.0.0", port);
 
-            System.out.println("Employee created successfully!");
-
-            // Login
-            System.out.print("Username: ");
-            String username = scanner.nextLine();
-
-            System.out.print("Password: ");
-            String password = scanner.nextLine();
-
-            Employee loggedInEmployee =
-                    employeeDAO.findByUsername(username);
-
-            if (loggedInEmployee == null
-                    || !loggedInEmployee.verifyPassword(password)) {
-
-                System.out.println("Invalid username or password.");
-                return;
-            }
-
-            System.out.println("Login successful!");
-            System.out.println(
-                    "Roles: "
-                            + loggedInEmployee.getRolesAsStrings()
-            );
-
-            // Check authorization
-            if (loggedInEmployee.getRolesAsStrings()
-                    .contains("ADMIN")) {
-
-                System.out.println("Welcome, administrator!");
-            } else {
-                System.out.println("Welcome, employee!");
-            }
-
-        } finally {
-            scanner.close();
-            employeeDAO.close();
-        }
+        System.out.println("DeliHelper API started on port " + port);
     }
 }
