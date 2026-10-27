@@ -3,17 +3,14 @@ LABEL authors="Aschl"
 
 ENTRYPOINT ["top", "-b"]
 
-# Start with Amazon Corretto 17 Alpine base image
 FROM amazoncorretto:17-alpine
 
-# Install curl on Alpine
-RUN apk update && apk add --no-cache curl
+RUN apk add --no-cache curl
 
-# Copy the jar file into the image
-COPY target/app.jar /app.jar
+WORKDIR /app
 
-# Expose the port your app runs on
+COPY target/DeliHelper-1.0-SNAPSHOT.jar /app.jar
+
 EXPOSE 7070
 
-# Command to run your app
 CMD ["java", "-jar", "/app.jar"]
