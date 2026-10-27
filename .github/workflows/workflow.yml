@@ -42,8 +42,24 @@
             distribution: temurin
             cache: maven
 
+
         - name: Build application JAR
-          run: mvn --batch-mode --update-snapshots package -DskipTests
+          run: |
+            for attempt in 1 2 3 4; do
+              if mvn --batch-mode package -DskipTests; then
+                exit 0
+              fi
+            
+              if [ "$attempt" -eq 4 ]; then
+                echo "Maven build failed after 4 attempts."
+                exit 1
+              fi
+            
+              delay=$((attempt * 15))
+              echo "Build failed. Retrying in ${delay} seconds..."
+              sleep "$delay"
+            done
+        
 
         - name: Verify JAR
           run: test -f target/app.jar
