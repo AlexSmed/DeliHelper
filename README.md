@@ -49,7 +49,7 @@ Technologies used:
 
 ## Architecture Diagram
 
-![img.png](img.png)
+![img.png](src/main/resources/public/Img/img.png)
 
 
 ## Key Design Decisions
@@ -76,7 +76,7 @@ Users log in and receive a token which must be included in subsequent API reques
 
 ## ERD
 
-![img_1.png](img_1.png)
+![img_1.png](src/main/resources/public/Img/img_1.png)
 
 ---
 
