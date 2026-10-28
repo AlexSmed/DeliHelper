@@ -30,7 +30,7 @@ public class Main {
         ProductsDAO productsDAO = new ProductsDAO(emf);
         new ProductsApi(productsDAO).registerRoutes(app);
 
-        app.start("0.0.0.0", port);
+        app.start(port);
 
         System.out.println("DeliHelper API started on port " + port);
     }
