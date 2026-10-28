@@ -17,7 +17,9 @@ public class Main {
         EntityManagerFactory emf =
                 HibernateConfig.getEntityManagerFactory();
 
-        Javalin app = Javalin.create();
+    Javalin app = Javalin.create(config -> {
+            config.staticFiles.add("/public");
+        });
 
         // Health check endpoint
         app.get("/api/auth/healthcheck", ctx -> {
