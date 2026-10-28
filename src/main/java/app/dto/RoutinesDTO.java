@@ -1,10 +1,14 @@
 package app.dto;
 
-import jakarta.persistence.Column;
-import lombok.*;
+import app.entities.Routines;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
-@Setter
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
@@ -18,4 +22,11 @@ public class RoutinesDTO {
 
     private int store_id;
 
+    // Convert a Routines entity into a DTO
+    public RoutinesDTO(Routines routine) {
+        this.id = routine.getId();
+        this.title = routine.getTitle();
+        this.description = routine.getDescription();
+        this.store_id = routine.getStore_id();
+    }
 }

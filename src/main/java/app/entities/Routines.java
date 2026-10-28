@@ -1,6 +1,13 @@
 package app.entities;
 
 import jakarta.persistence.*;
+import lombok.*;
+
+
+@Setter
+@Getter
+@AllArgsConstructor
+@ToString
 
 @Entity
 public class Routines {
