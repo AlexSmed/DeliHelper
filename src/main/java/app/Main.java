@@ -1,9 +1,13 @@
 
 package app;
 
+import app.api.BulletinApi;
 import app.api.ProductsApi;
+import app.api.RoutinesApi;
 import app.config.HibernateConfig;
+import app.dao.BulletinDAO;
 import app.dao.ProductsDAO;
+import app.dao.RoutinesDAO;
 import io.javalin.Javalin;
 import jakarta.persistence.EntityManagerFactory;
 
@@ -29,6 +33,10 @@ public class Main {
         // Register product routes using the existing database setup
         ProductsDAO productsDAO = new ProductsDAO(emf);
         new ProductsApi(productsDAO).registerRoutes(app);
+        RoutinesDAO routinesDAO = new RoutinesDAO(emf);
+        new RoutinesApi(routinesDAO).registerRoutes(app);
+        BulletinDAO bulletinDAO = new BulletinDAO(emf);
+        new BulletinApi(bulletinDAO).registerRoutes(app);
 
         app.start(port);
 

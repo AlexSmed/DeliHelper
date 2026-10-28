@@ -27,7 +27,6 @@ public class ProductsApi {
             ctx.json(products);
         });
 
-
         app.get("/products/{id}", ctx -> {
             Long id = Long.parseLong(ctx.pathParam("id"));
 
@@ -41,7 +40,6 @@ public class ProductsApi {
             ctx.json(new ProductDTO(products));
         });
 
-
         app.post("/products", ctx -> {
             Products product = ctx.bodyAsClass(Products.class);
 
@@ -50,7 +48,6 @@ public class ProductsApi {
             ctx.status(201);
             ctx.json(new ProductDTO(product));
         });
-
 
         app.put("/products/{id}", ctx -> {
             Long id = Long.parseLong(ctx.pathParam("id"));
@@ -79,7 +76,6 @@ public class ProductsApi {
 
             ctx.json(new ProductDTO(savedProduct));
         });
-
 
         app.delete("/products/{id}", ctx -> {
             Long id = Long.parseLong(ctx.pathParam("id"));

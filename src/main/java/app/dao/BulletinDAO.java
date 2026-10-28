@@ -2,12 +2,19 @@ package app.dao;
 
 import app.config.HibernateConfig;
 import app.entities.Bulletin;
+import app.entities.Products;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 
+import java.util.List;
+
 public class BulletinDAO {
 
-    private EntityManagerFactory emf = HibernateConfig.getEntityManagerFactory();
+    private final EntityManagerFactory emf;
+
+    public BulletinDAO(EntityManagerFactory emf) {
+        this.emf = emf;
+    }
 
     public Bulletin save(Bulletin bulletin)
     {
@@ -17,6 +24,21 @@ public class BulletinDAO {
         em.getTransaction().commit();
         em.close();
         return bulletin;
+    }
+
+    public Bulletin getById(Long id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.find(Bulletin.class, id);
+        }
+    }
+
+    public List<Bulletin> getAll() {
+        try (EntityManager em = emf.createEntityManager()) {
+            return em.createQuery(
+                    "SELECT b FROM Bulletin b",
+                    Bulletin.class
+            ).getResultList();
+        }
     }
 
     public Bulletin findByTitle(String title)
@@ -37,18 +59,21 @@ public class BulletinDAO {
         return updatedBulletin;
     }
 
-    public void delete(String title)
-    {
-        EntityManager em = emf.createEntityManager();
-        em.getTransaction().begin();
-        Bulletin bulletin = findByTitle(title);
-        if (bulletin != null)
-        {
-            em.remove(bulletin);
+
+    public void delete(long id) {
+        try (EntityManager em = emf.createEntityManager()) {
+            em.getTransaction().begin();
+
+            Products product = em.find(Products.class, id);
+
+            if (product != null) {
+                em.remove(product);
+            }
+
+            em.getTransaction().commit();
         }
-        em.getTransaction().commit();
-        em.close();
     }
+
 
     public void close()
     {
