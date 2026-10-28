@@ -15,16 +15,6 @@ public class ProductsDAO {
         this.emf = emf;
     }
 
-    //-------------------------------------------------\\
-    // Posibably the same mothods just a bit different \\
-    public void create(Products products) {
-        try (EntityManager em = emf.createEntityManager()) {
-            em.getTransaction().begin();
-            em.persist(products);
-            em.getTransaction().commit();
-        }
-    }
-
     public Products save(Products products)
     {
         EntityManager em = emf.createEntityManager();
@@ -62,13 +52,6 @@ public class ProductsDAO {
                     .findFirst()
                     .orElse(null);
         }
-    }
-    public Products findById(long id)
-    {
-        EntityManager em = emf.createEntityManager();
-        Products foundProducts = em.find(Products.class, id);
-        em.close();
-        return foundProducts;
     }
 
     public Products getById(Long id) {

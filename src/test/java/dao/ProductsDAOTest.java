@@ -51,7 +51,7 @@ class ProductsDAOTest {
     void createShouldPersistProduct() {
         Products product = createProduct("Fruit");
 
-        dao.create(product);
+        dao.save(product);
 
         assertTrue(product.getId() > 0);
         assertNotNull(dao.getById(product.getId()));

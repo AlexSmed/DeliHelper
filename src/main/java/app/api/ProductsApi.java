@@ -17,7 +17,7 @@ public class ProductsApi {
 
     public void registerRoutes(Javalin app) {
 
-        // GET all products
+
         app.get("/products", ctx -> {
             var products = productsDAO.getAll()
                     .stream()
@@ -27,7 +27,7 @@ public class ProductsApi {
             ctx.json(products);
         });
 
-        // GET one product
+
         app.get("/products/{id}", ctx -> {
             Long id = Long.parseLong(ctx.pathParam("id"));
 
@@ -41,17 +41,17 @@ public class ProductsApi {
             ctx.json(new ProductDTO(products));
         });
 
-// CREATE product
+
         app.post("/products", ctx -> {
             Products product = ctx.bodyAsClass(Products.class);
 
-            productsDAO.create(product);
+            productsDAO.save(product);
 
             ctx.status(201);
             ctx.json(new ProductDTO(product));
         });
 
-// UPDATE product
+
         app.put("/products/{id}", ctx -> {
             Long id = Long.parseLong(ctx.pathParam("id"));
 
@@ -80,7 +80,7 @@ public class ProductsApi {
             ctx.json(new ProductDTO(savedProduct));
         });
 
-        // DELETE product
+
         app.delete("/products/{id}", ctx -> {
             Long id = Long.parseLong(ctx.pathParam("id"));
 
