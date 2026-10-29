@@ -8,7 +8,7 @@ for Allergies.
 
 ## Links
 
-Deployed application (optional):  
+Deployed application (has a frontend main menu, because was unsure if the deployment work):  
 [DeliHelper.krammegruppe.dk](https://delihelper.krammegruppe.dk/)
 
 Source code repository:  
