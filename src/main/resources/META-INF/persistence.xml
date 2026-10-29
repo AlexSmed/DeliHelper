@@ -5,14 +5,17 @@
 
     <persistence-unit name="products" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+
         <class>app.entities.Products</class>
+        <class>app.entities.Bulletin</class>
+        <class>app.entities.Routines</class>
 
         <properties>
             <property name="jakarta.persistence.jdbc.driver"
                       value="org.postgresql.Driver"/>
 
             <property name="jakarta.persistence.jdbc.url"
-                      value="jdbc:postgresql://localhost:5432/DeliHelper"/>
+                      value="jdbc:postgresql://db:5432/DeliHelper"/>
 
             <property name="jakarta.persistence.jdbc.user"
                       value="postgres"/>
@@ -29,5 +32,5 @@
 
     </persistence-unit>
 
-</persistence>
 
+</persistence>
