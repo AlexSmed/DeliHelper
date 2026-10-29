@@ -3,7 +3,7 @@
 ## Vision
 
 This Application is meant to be a easy and manageable place to hold recipes, important information and Routines for a 
-Resturant / Deli, so that the Employees have an easier time knowing what to do. it also uses Gemeni to Check Products 
+Resturant / Deli, so that the Employees have an easier time knowing what to do. it also uses Gemini to Check Products 
 for Allergies.
 
 ## Links
@@ -217,13 +217,11 @@ Here is the Text Prompt to gemini :
 `"\"reason\" (short explanation)."`
 ```
 
+**Sickness** : i was sick during the time we learned about Secuity and Deployment.   
+but i just read the homework and did the Work, that would be gone through in class at home
 (Optional section)
 
-Here you can briefly describe important challenges or lessons learned during development.
+Because i missed the Security week, i had to learn how to make the JWT work, i did that by watching the provided video,
+from the teachers and searched google too, if i was unsure.
+(Learned i shall not get sick again :/ )
 
-Examples:
-
-- Handling authentication with JWT
-- Designing the database schema
-- Structuring the service layer
-- Testing the API
