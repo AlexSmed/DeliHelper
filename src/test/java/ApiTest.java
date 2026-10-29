@@ -4,7 +4,6 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.*;
 
 class ApiTest {
 
@@ -15,13 +14,12 @@ class ApiTest {
     }
 
     @Test
-    void shouldGetProducts() {
+    void productsWithoutTokenShouldReturn401() {
         given()
-                .baseUri("http://localhost:7070")
                 .when()
-                .get("/products")
+                .get("/api/products")
                 .then()
-                .statusCode(200);
+                .statusCode(401);
     }
 
     @Test
