@@ -54,21 +54,26 @@ Technologies used:
 
 ## Key Design Decisions
 
-Describe important technical decisions you made.
-
 Examples:
-
-- Why you chose your project structure
 - How authentication works
-- How errors are handled
-- Why you chose specific libraries or frameworks
 
-Example:
+**Project Structure / Libraries**
+
+i choose this Structure because it is what i was teached about, and know how to you. its the same with the libraries and 
+frameworks its whats been teached in class and what im familliar with, and know how to use. 
 
 **Authentication**
 
 Authentication is implemented using JWT tokens.  
 Users log in and receive a token which must be included in subsequent API requests.
+mainly for the admin so we don't have users come and add random products and routines
+
+**Errors**  
+
+Errors are handled using a combination of checks in the API routes and a centralized exception handler in Javalin. For 
+example, if a product is not found, the API returns a 404 Not Found response. Unexpected errors are logged and return a 
+500 Internal Server Error response with a error message. I chose this approach because it keeps error handling 
+simple and makes it easier to handle errors consistently across the API.
 
 ---
 
@@ -177,27 +182,27 @@ Response:
 
 User Story : 1
 Som Admin skal jeg kunne oprette en nye opskrift og produkter         
-Acceptance Criteria : Når det virker
+Acceptance Criteria : når en admin kan oprette et Produkt
 
 User Story : 2
 Som admin skal jeg kunne rediger eksisterne opskrifter og produkter        
-Acceptance Criteria : Når det virker
+Acceptance Criteria : Når en admin kan rediger et produkt
 
 User Story : 3
 Som admin skal jeg kunne tilføje nu brugere ind i systemet         
-Acceptance Criteria : Når det virker
+Acceptance Criteria : Når en admin kan tilføje en bruger i systemet.
 
 User Story : 4
 Som admin skal jeg kunne oprette rutiner og opslag         
-Acceptance Criteria : Når det virker       
+Acceptance Criteria : Når en admin kan oprette rutiner og opslag      
 
 User Story : 5
 Som brugere skal jeg kunne finde opskrifter og produkter, ved at søg på navn eller katogori       
-Acceptance Criteria : Når det virker
+Acceptance Criteria : Når en bruger kan finde produkter de leder efter ved navn eller kategori
 
 User Story : 6
 Som brugere vil jeg kunne tage et billede af et label fra et produkt  se mulige allegener          
-Acceptance Criteria : Når det virker
+Acceptance Criteria : Når en bruger kan få en liste a allegener med et billede af labelet
 
 ---
 
@@ -217,13 +222,3 @@ Here is the Text Prompt to gemini :
 `"\"reason\" (short explanation)."`
 ```
 
-(Optional section)
-
-Here you can briefly describe important challenges or lessons learned during development.
-
-Examples:
-
-- Handling authentication with JWT
-- Designing the database schema
-- Structuring the service layer
-- Testing the API
