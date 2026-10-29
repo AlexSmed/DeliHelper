@@ -61,9 +61,12 @@ public final class HibernateConfig {
         props.setProperty("hibernate.connection.password", password);
         props.setProperty("hibernate.hbm2ddl.auto", "update");
 
-        return new Configuration()
-                .addProperties(props)
-                .buildSessionFactory();
+        Configuration configuration = new Configuration()
+                .addProperties(props);
+
+        EntityRegistry.registerEntities(configuration);
+
+        return configuration.buildSessionFactory();
     }
 
     private static String requireEnv(String name) {
