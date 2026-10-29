@@ -9,7 +9,7 @@ for Allergies.
 ## Links
 
 Deployed application (optional):  
-DeliHelper.krammegruppe.dk
+[DeliHelper.krammegruppe.dk](https://delihelper.krammegruppe.dk/)
 
 Source code repository:  
 https://github.com/AlexSmed/DeliHelper
