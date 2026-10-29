@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DeliHelper | Main Menu</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f6f2;
+            color: #26352b;
+        }
+
+        header {
+            background: #244d38;
+            color: white;
+            padding: 22px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: bold;
+        }
+
+        nav {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 15px;
+        }
+
+        nav a:hover {
+            color: #c6e5c9;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: 65px auto;
+            padding: 0 24px;
+        }
+
+        .welcome {
+            margin-bottom: 40px;
+        }
+
+        .welcome h1 {
+            font-size: 38px;
+            margin-bottom: 12px;
+        }
+
+        .welcome p {
+            color: #68736a;
+            font-size: 17px;
+        }
+
+        .menu {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 22px;
+        }
+
+        .card {
+            background: white;
+            padding: 28px;
+            border-radius: 12px;
+            border: 1px solid #e2e7df;
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px #26352b12;
+        }
+
+        .icon {
+            font-size: 32px;
+            margin-bottom: 18px;
+        }
+
+        .card h2 {
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            color: #68736a;
+            line-height: 1.5;
+            font-size: 14px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            color: #788078;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 20px 6%;
+            }
+
+            nav {
+                gap: 14px;
+            }
+
+            main {
+                margin: 40px auto;
+            }
+
+            .welcome h1 {
+                font-size: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">🥪 DeliHelper</div>
+
+    <nav>
+        <a href="/public">Home</a>
+        <a href="/products">Products</a>
+        <a href="/about">About</a>
+    </nav>
+</header>
+
+<main>
+    <section class="welcome">
+        <h1>Welcome to DeliHelper</h1>
+        <p>Your everyday assistant for deli products, recipes and routines.</p>
+    </section>
+
+    <section class="menu">
+        <a href="/products" class="card">
+            <div class="icon">📦</div>
+            <h2>Products</h2>
+            <p>Browse products and find the information you need.</p>
+        </a>
+
+        <a href="/routines" class="card">
+            <div class="icon">📋</div>
+            <h2>Routines</h2>
+            <p>Keep track of daily tasks and working procedures.</p>
+        </a>
+
+        <a href="/bulletins" class="card">
+            <div class="icon">📢</div>
+            <h2>Bulletin Board</h2>
+            <p>Stay up to date with important announcements.</p>
+        </a>
+
+        <a href="/allergens" class="card">
+            <div class="icon">⚠️</div>
+            <h2>Allergy Checker</h2>
+            <p>Find allergen information for deli products.</p>
+        </a>
+
+        <a href="/about" class="card">
+            <div class="icon">ℹ️</div>
+            <h2>About DeliHelper</h2>
+            <p>Learn more about the application and its features.</p>
+        </a>
+    </section>
+</main>
+
+<footer>
+    &copy; 2026 DeliHelper. All rights reserved.
+</footer>
+
+</body>
+</html>
+```
